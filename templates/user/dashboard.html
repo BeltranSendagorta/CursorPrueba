@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Voluntario - Cruz Roja Arriluce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <h2>{{ user_data.nombre }} {{ user_data.apellidos }}</h2>
+                <p class="roles">{{ user_data.roles|join(', ')|title }}</p>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#perfil"><i class="fas fa-id-card"></i> Mi Perfil</a></li>
+                <li><a href="#guardias"><i class="fas fa-calendar-alt"></i> Mis Guardias</a></li>
+                <li><a href="#cursos"><i class="fas fa-graduation-cap"></i> Mis Cursos</a></li>
+            </ul>
+            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </nav>
+
+        <main class="content">
+            <section id="perfil" class="section-active">
+                <h2>Mi Perfil</h2>
+                <div class="profile-info">
+                    <div class="info-group">
+                        <label>Nombre completo:</label>
+                        <p>{{ user_data.nombre }} {{ user_data.apellidos }}</p>
+                    </div>
+                    <div class="info-group">
+                        <label>DNI:</label>
+                        <p>{{ user_data.dni }}</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Teléfono:</label>
+                        <p>{{ user_data.telefono or 'No especificado' }}</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Email:</label>
+                        <p>{{ user_data.email or 'No especificado' }}</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Roles:</label>
+                        <p>{{ user_data.roles|join(', ')|title }}</p>
+                    </div>
+                </div>
+
+                <div class="proxima-guardia">
+                    <h3>Próxima Guardia</h3>
+                    {% if proxima_guardia %}
+                        <div class="guardia-info">
+                            <p class="fecha">{{ proxima_guardia.fecha_formateada }}</p>
+                            <p class="info">Fin de semana completo</p>
+                        </div>
+                    {% else %}
+                        <p class="no-guardia">No tienes guardias programadas</p>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section id="guardias" class="hidden">
+                <h2>Mis Guardias {{ año_actual }}</h2>
+                <div class="selector-año">
+                    <label for="año">Seleccionar año:</label>
+                    <select id="año" onchange="cambiarAño(this.value)">
+                        {% for año in años_disponibles %}
+                        <option value="{{ año }}" {% if año == año_actual %}selected{% endif %}>
+                            {{ año }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="calendario-container">
+                    <div class="calendario-grid">
+                        {% for mes in range(1, 13) %}
+                        <div class="mes">
+                            <h3>{{ nombres_meses[mes-1] }}</h3>
+                            <table class="calendario">
+                                <tr>
+                                    <th>L</th>
+                                    <th>M</th>
+                                    <th>M</th>
+                                    <th>J</th>
+                                    <th>V</th>
+                                    <th>S</th>
+                                    <th>D</th>
+                                </tr>
+                                {% for semana in calendarios[mes] %}
+                                <tr>
+                                    {% for dia in semana %}
+                                    {% if dia != 0 %}
+                                        {% set fecha_actual = '%04d-%02d-%02d'|format(año_actual, mes, dia) %}
+                                        <td class="{{ 'guardia' if fecha_actual in dias_guardia else '' }}">
+                                            {{ dia }}
+                                        </td>
+                                    {% else %}
+                                        <td class="vacio"></td>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Debug info -->
+                <div style="display: none;">
+                    <p>Días de guardia disponibles:</p>
+                    <ul>
+                    {% for dia in dias_guardia %}
+                        <li>{{ dia }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </section>
+
+            <section id="cursos" class="hidden">
+                <h2>Mis Cursos</h2>
+                <!-- Contenido de cursos -->
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/user.js') }}"></script>
+</body>
+</html> 

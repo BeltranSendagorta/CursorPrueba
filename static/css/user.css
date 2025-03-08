@@ -1,0 +1,316 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #e31837;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info {
+    text-align: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.user-info i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.user-info h2 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.user-info p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.user-info .roles {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.nav-links {
+    list-style: none;
+    margin-bottom: auto;
+}
+
+.nav-links li {
+    margin-bottom: 1rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a i {
+    margin-right: 0.5rem;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links .active a {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: #f5f5f5;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-group label {
+    font-weight: bold;
+    color: #666;
+}
+
+.info-group p {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.logout-btn {
+    margin-top: 2rem;
+    padding: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.logout-btn i {
+    margin-right: 0.5rem;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.proxima-guardia {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.proxima-guardia h3 {
+    color: #e31837;
+    margin-bottom: 15px;
+}
+
+.guardia-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.guardia-info .fecha {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.guardia-info .info {
+    color: #666;
+}
+
+.no-guardia {
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+}
+
+/* Estilos del calendario */
+.calendario-container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.mes {
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.mes h3 {
+    color: #e31837;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.calendario {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.calendario th {
+    background-color: #f8f9fa;
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.calendario td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #eee;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.calendario td.guardia {
+    background-color: #e31837;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(227, 24, 55, 0.2);
+    transition: all 0.2s ease;
+}
+
+.calendario td.vacio {
+    background-color: #f8f9fa;
+    border: none;
+}
+
+/* Efecto hover para días de guardia */
+.calendario td.guardia:hover {
+    background-color: #c41230;
+    transform: scale(1.15);
+}
+
+/* Selector de año */
+.selector-año {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.selector-año select {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 2px solid #e31837;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    color: #e31837;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.selector-año select:hover {
+    background-color: #e31837;
+    color: white;
+}
+
+.selector-año select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.2);
+}
+
+/* Tooltip para días de guardia */
+.calendario td.guardia::after {
+    content: "Día de guardia";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.calendario td.guardia:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: 120%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendario-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calendario td {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+} 

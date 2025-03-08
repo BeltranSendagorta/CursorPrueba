@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal del Voluntario - Cruz Roja del Mar</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img 
+                    src="../images/LogoCRM1.png" 
+                    alt="Logo Cruz Roja del Mar" 
+                    onerror="this.onerror=null; this.src='../images/LogoCRM1.png';"
+                >
+            </div>
+            <div class="user-info">
+                <span id="userName">Beltrán</span>
+                <button id="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="volunteer-dashboard">
+        <div class="dashboard-grid">
+            <section class="profile-card">
+                <h2>Perfil del Voluntario</h2>
+                <div class="avatar-section">
+                    <div class="avatar-container">
+                        <img 
+                            src="../images/DefaultUser.png" 
+                            alt="Avatar" 
+                            class="avatar" 
+                            id="userAvatar"
+                            onerror="this.onerror=null; this.src='../images/DefaultUser.png';"
+                        >
+                    </div>
+                    <h3 id="volunteerName">Beltrán</h3>
+                </div>
+                <div class="roles-section">
+                    <h4>Roles Activos:</h4>
+                    <ul>
+                        <li><i class="fas fa-anchor"></i> Patrón</li>
+                        <li><i class="fas fa-life-ring"></i> Socorrista</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="training-card">
+                <h2>Formación</h2>
+                <div class="courses-grid">
+                    <div class="course-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Primeros Auxilios</span>
+                        <div class="status completed">Completado</div>
+                    </div>
+                    <div class="course-item">
+                        <i class="fas fa-satellite-dish"></i>
+                        <span>Comunicaciones</span>
+                        <div class="status completed">Completado</div>
+                    </div>
+                    <div class="course-item">
+                        <i class="fas fa-ship"></i>
+                        <span>Navegación Básica</span>
+                        <div class="status completed">Completado</div>
+                    </div>
+                    <div class="course-item">
+                        <i class="fas fa-compass"></i>
+                        <span>Navegación Avanzada</span>
+                        <div class="status pending">Pendiente</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upcoming-shifts-card">
+                <h2>Próximas Guardias</h2>
+                <div class="shifts-list">
+                    <div class="shift-item">
+                        <div class="shift-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>15 Marzo 2024</span>
+                        </div>
+                        <div class="shift-time">
+                            <i class="fas fa-clock"></i>
+                            <span>21:00 - 09:00</span>
+                        </div>
+                        <div class="shift-type">Guardia Nocturna</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        const defaultAvatarBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...'; // Aquí iría el base64 de tu imagen
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejo de errores para el logo
+            const logoImg = document.querySelector('.logo img');
+            logoImg.onerror = function() {
+                console.log('Error cargando logo, intentando ruta alternativa');
+                this.src = '/images/LogoCRM1.png';
+                // Intenta rutas alternativas si la primera falla
+                this.onerror = function() {
+                    this.src = '../images/LogoCRM1.png';
+                    this.onerror = function() {
+                        this.src = './images/LogoCRM1.png';
+                    }
+                }
+            };
+
+            // Manejo de la imagen por defecto
+            const userAvatar = document.getElementById('userAvatar');
+            if (userAvatar) {
+                userAvatar.onerror = function() {
+                    this.onerror = null; // Previene bucle infinito
+                    this.src = '/images/DefaultUser.png';
+                };
+            }
+
+            // Asegúrate de que la imagen se carga
+            if (userAvatar && (!userAvatar.complete || userAvatar.naturalHeight === 0)) {
+                userAvatar.src = '/images/DefaultUser.png';
+            }
+
+            // Configuración del calendario
+            const calendarEl = document.getElementById('guardiasCalendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                height: 'auto',
+                aspectRatio: 1.35, // Ajusta la proporción del calendario
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek'
+                },
+                buttonText: {
+                    today: 'Hoy',
+                    month: 'Mes',
+                    week: 'Semana'
+                },
+                dayMaxEvents: true, // Permite que los eventos se expandan
+                events: [
+                    {
+                        title: 'Guardia Nocturna',
+                        start: '2024-03-15T21:00:00',
+                        end: '2024-03-16T09:00:00',
+                        color: '#e31837'
+                    }
+                ],
+                eventDisplay: 'block', // Mejora la visualización de eventos
+                displayEventTime: true,
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }
+            });
+            
+            calendar.render();
+
+            // Ajustar tamaño del calendario cuando cambie el tamaño de la ventana
+            window.addEventListener('resize', function() {
+                calendar.updateSize();
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Cruz Roja Arriluce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="user-info">
+                <i class="fas fa-user-shield"></i>
+                <h2>Administrador</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#voluntarios"><i class="fas fa-users"></i> Voluntarios</a></li>
+                <li><a href="#nuevo-voluntario"><i class="fas fa-user-plus"></i> Nuevo Voluntario</a></li>
+                <li><a href="#cursos"><i class="fas fa-graduation-cap"></i> Cursos</a></li>
+                <li><a href="#nuevo-curso"><i class="fas fa-plus-circle"></i> Nuevo Curso</a></li>
+            </ul>
+            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </nav>
+
+        <main class="content">
+            <section id="voluntarios" class="section-active">
+                <h2>Gestión de Voluntarios</h2>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>DNI</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th>Cursos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="voluntarios-lista">
+                            {% for voluntario in voluntarios %}
+                            <tr>
+                                <td>{{ voluntario.nombre }}</td>
+                                <td>{{ voluntario.apellidos }}</td>
+                                <td>{{ voluntario.dni }}</td>
+                                <td>{{ voluntario.telefono }}</td>
+                                <td>{{ voluntario.email }}</td>
+                                <td>{{ voluntario.roles or 'Sin roles' }}</td>
+                                <td>
+                                    <button class="btn-ver-cursos" data-id="{{ voluntario.id }}">
+                                        Ver Cursos
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn-editar" data-id="{{ voluntario.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="nuevo-voluntario" class="hidden">
+                <h2>Nuevo Voluntario</h2>
+                <form id="form-nuevo-voluntario" class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI:</label>
+                        <input type="text" id="dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" id="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña inicial:</label>
+                        <input type="password" id="password" required>
+                        <small>Esta será la contraseña con la que el voluntario podrá acceder al sistema</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Roles:</label>
+                        <div class="roles-checkboxes">
+                            <label class="checkbox-container">
+                                <input type="checkbox" name="roles" value="patron"> Patrón
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" name="roles" value="marinero"> Marinero
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" name="roles" value="socorrista"> Socorrista
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Crear Voluntario</button>
+                </form>
+            </section>
+
+            <section id="cursos" class="hidden">
+                <h2>Gestión de Cursos</h2>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Horas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cursos-lista">
+                            {% for curso in cursos %}
+                            <tr>
+                                <td>{{ curso.nombre }}</td>
+                                <td>{{ curso.descripcion }}</td>
+                                <td>{{ curso.horas }}</td>
+                                <td>
+                                    <button class="btn-editar" data-id="{{ curso.id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="nuevo-curso" class="hidden">
+                <h2>Nuevo Curso</h2>
+                <form id="form-nuevo-curso" class="form-grid">
+                    <div class="form-group">
+                        <label for="curso-nombre">Nombre:</label>
+                        <input type="text" id="curso-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="curso-descripcion">Descripción:</label>
+                        <textarea id="curso-descripcion" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="curso-horas">Horas:</label>
+                        <input type="number" id="curso-horas" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Crear Curso</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para ver/editar cursos de voluntario -->
+    <div id="modal-cursos" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Cursos del Voluntario</h3>
+            <div id="cursos-voluntario"></div>
+        </div>
+    </div>
+
+    <!-- Modal de edición de voluntario -->
+    <div id="modal-editar-voluntario" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Editar Voluntario</h3>
+            <form id="form-editar-voluntario" class="form-grid">
+                <input type="hidden" id="edit-voluntario-id">
+                <div class="form-group">
+                    <label for="edit-nombre">Nombre:</label>
+                    <input type="text" id="edit-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-apellidos">Apellidos:</label>
+                    <input type="text" id="edit-apellidos" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-dni">DNI:</label>
+                    <input type="text" id="edit-dni" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="edit-telefono">Teléfono:</label>
+                    <input type="tel" id="edit-telefono">
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email:</label>
+                    <input type="email" id="edit-email">
+                </div>
+                <div class="form-group">
+                    <label for="edit-password">Nueva Contraseña:</label>
+                    <input type="password" id="edit-password">
+                    <small>Dejar en blanco para mantener la contraseña actual</small>
+                </div>
+                <div class="form-group">
+                    <label>Roles:</label>
+                    <div class="roles-checkboxes">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="edit-roles" value="patron"> Patrón
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="edit-roles" value="marinero"> Marinero
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="edit-roles" value="socorrista"> Socorrista
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html> 

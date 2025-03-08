@@ -1,0 +1,371 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Header y navegación */
+header {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    max-width: 200px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#userName {
+    font-weight: 500;
+    color: #333;
+}
+
+#logoutBtn {
+    background-color: #e31837;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Dashboard principal */
+.volunteer-dashboard {
+    max-width: 1400px;
+    margin: 80px auto 2rem; /* Ajustado para el header fijo */
+    padding: 0 2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* Tarjetas comunes */
+.profile-card, .training-card, .upcoming-shifts-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Perfil del voluntario */
+.avatar-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.avatar-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    border: 3px solid #e31837;
+    padding: 3px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.roles-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.roles-section li {
+    background: #f8f9fa;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+    color: #e31837;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Formación */
+.courses-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.course-item {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.course-item i {
+    font-size: 1.5rem;
+    color: #e31837;
+    width: 30px;
+    text-align: center;
+}
+
+.status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status.completed {
+    background: #28a745;
+    color: white;
+}
+
+.status.pending {
+    background: #ffc107;
+    color: #000;
+}
+
+/* Próximas guardias */
+.shifts-list {
+    margin-top: 1rem;
+}
+
+.shift-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #e31837;
+    transition: transform 0.2s ease;
+}
+
+.shift-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.shift-date, .shift-time {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.shift-date i, .shift-time i {
+    color: #e31837;
+    width: 24px;
+    margin-right: 0.5rem;
+}
+
+.shift-type {
+    color: #e31837;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.5rem 1rem;
+    }
+
+    .logo {
+        height: 40px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .volunteer-dashboard {
+        padding: 0 1rem;
+        margin-top: 60px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+/* Estilos mejorados para el calendario */
+.calendar-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-navigation {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.calendar-nav-btn {
+    background-color: #e31837;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-today-btn {
+    background-color: #ff97a7;
+    color: white;
+}
+
+.calendar-view-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.calendar-view-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-view-btn.active {
+    background-color: #e31837;
+    color: white;
+    border-color: #e31837;
+}
+
+/* Estilos para la tabla del calendario */
+.calendar-grid {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.calendar-grid th {
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.calendar-grid td {
+    padding: 0.75rem;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calendar-grid td:hover {
+    background-color: #fff3f4;
+}
+
+.calendar-grid td.today {
+    background-color: #fff3f4;
+    color: #e31837;
+    font-weight: bold;
+}
+
+.calendar-grid td.has-event {
+    position: relative;
+}
+
+.calendar-grid td.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #e31837;
+    border-radius: 50%;
+}
+
+/* Días fuera del mes actual */
+.calendar-grid td.other-month {
+    color: #adb5bd;
+}
+
+/* Añade este código al script existente */
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo img');
+    
+    function handleLogoError() {
+        console.log('Error cargando el logo');
+        // Intenta diferentes rutas relativas
+        const possiblePaths = [
+            '../images/LogoCRM1.png',
+            './images/LogoCRM1.png',
+            '/images/LogoCRM1.png',
+            'images/LogoCRM1.png'
+        ];
+        
+        let currentPath = 0;
+        
+        const tryNextPath = () => {
+            if (currentPath < possiblePaths.length) {
+                logo.src = possiblePaths[currentPath];
+                currentPath++;
+            }
+        };
+        
+        tryNextPath();
+    }
+    
+    logo.onerror = handleLogoError;
+}); 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Cruz Roja del Mar</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../images/LogoCRM1.png" alt="Logo Cruz Roja del Mar">
+            </div>
+            <div class="admin-nav">
+                <button class="nav-btn active" data-section="volunteers">Voluntarios</button>
+                <button class="nav-btn" data-section="courses">Gestión de Cursos</button>
+                <button class="nav-btn" data-section="shifts">Guardias</button>
+            </div>
+            <div class="user-info">
+                <span id="adminName">Administrador</span>
+                <button id="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="admin-dashboard">
+        <!-- Sección de Gestión de Voluntarios -->
+        <section id="volunteers" class="dashboard-section">
+            <div class="section-header">
+                <h2>Gestión de Voluntarios</h2>
+                <div class="search-bar">
+                    <input type="text" id="volunteerSearch" placeholder="Buscar voluntario...">
+                </div>
+            </div>
+            <div class="volunteers-grid">
+                <!-- Ejemplo de tarjeta de voluntario -->
+                <div class="volunteer-card" data-volunteer-id="1">
+                    <div class="volunteer-header">
+                        <img src="../images/DefaultUser.png" alt="Beltrán" class="volunteer-avatar">
+                        <div class="volunteer-info">
+                            <h3>Beltrán</h3>
+                            <p class="roles">Patrón, Socorrista</p>
+                        </div>
+                        <button class="edit-btn" onclick="openEditModal(1)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                    <div class="courses-list">
+                        <div class="course-item">
+                            <span>Primeros Auxilios</span>
+                            <select class="course-status">
+                                <option value="completed" selected>Completado</option>
+                                <option value="pending">Pendiente</option>
+                            </select>
+                        </div>
+                        <div class="course-item">
+                            <span>Comunicaciones</span>
+                            <select class="course-status">
+                                <option value="completed" selected>Completado</option>
+                                <option value="pending">Pendiente</option>
+                            </select>
+                        </div>
+                        <div class="course-item">
+                            <span>Navegación Básica</span>
+                            <select class="course-status">
+                                <option value="completed" selected>Completado</option>
+                                <option value="pending">Pendiente</option>
+                            </select>
+                        </div>
+                        <div class="course-item">
+                            <span>Navegación Avanzada</span>
+                            <select class="course-status">
+                                <option value="completed">Completado</option>
+                                <option value="pending" selected>Pendiente</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="save-btn" data-id="1">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de edición mejorado -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Voluntario</h2>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            <form id="editVolunteerForm">
+                <input type="hidden" id="editVolunteerId">
+                <div class="form-group">
+                    <label for="editName">Nombre</label>
+                    <input type="text" id="editName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Roles</label>
+                    <div class="roles-checkboxes">
+                        <label class="role-checkbox">
+                            <input type="checkbox" name="roles" value="patron">
+                            <span class="role-label">
+                                <i class="fas fa-anchor"></i> Patrón
+                            </span>
+                        </label>
+                        <label class="role-checkbox">
+                            <input type="checkbox" name="roles" value="socorrista">
+                            <span class="role-label">
+                                <i class="fas fa-life-ring"></i> Socorrista
+                            </span>
+                        </label>
+                        <label class="role-checkbox">
+                            <input type="checkbox" name="roles" value="marinero">
+                            <span class="role-label">
+                                <i class="fas fa-ship"></i> Marinero
+                            </span>
+                        </label>
+                        <label class="role-checkbox">
+                            <input type="checkbox" name="roles" value="sos">
+                            <span class="role-label">
+                                <i class="fas fa-ambulance"></i> SOS
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeEditModal()">Cancelar</button>
+                    <button type="submit" class="save-btn">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

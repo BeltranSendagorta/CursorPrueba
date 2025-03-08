@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+cruz_roja.db
+.env
+venv/
+.DS_Store
